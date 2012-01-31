@@ -12,16 +12,21 @@
  * THE SOFTWARE.
  */
 
-#include "gtest/gtest.h"
+#include "Singleton.h"
 
-#include "linkedList/NodeTest.cpp"
+Singleton * Singleton::_instance = 0;
+boost::mutex Singleton::_mutex;
 
-#include "mixins/MixinsTest.cpp"
-#include "mixins/StringIteratorTest.cpp"
+Singleton::Singleton() {
+    // Protected to avoid multiple instances to be created by client code.
+}
 
-#include "patterns/SingletonTest.cpp"
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+Singleton * Singleton::Instance() {
+    if (_instance == 0) {
+        boost::mutex::scoped_lock lock(_mutex); // Thread-safe initialization of singleton.
+        if (_instance == 0) {
+            _instance = new Singleton();
+        }
+    }
+    return _instance;
 }

@@ -13,15 +13,12 @@
  */
 
 #include "gtest/gtest.h"
+#include "patterns/singleton/Singleton.h"
 
-#include "linkedList/NodeTest.cpp"
-
-#include "mixins/MixinsTest.cpp"
-#include "mixins/StringIteratorTest.cpp"
-
-#include "patterns/SingletonTest.cpp"
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+namespace {
+    TEST(SingletonTest, SingletonProvidesAccessToAnUniqueInstance) {
+        Singleton * first = Singleton::Instance();
+        Singleton * second = Singleton::Instance();
+        EXPECT_EQ(first, second);
+    }
 }

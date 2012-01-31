@@ -18,5 +18,7 @@ Developped using Test Driven Development.
 Content:
 - Linked lists and cycle detection
 - Mixins and functional programming applied to iterators
+- Design patterns:
+    - Singleton (thread-safe)
 
 *******************************************************************************

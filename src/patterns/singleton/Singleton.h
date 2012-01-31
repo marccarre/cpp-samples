@@ -12,16 +12,25 @@
  * THE SOFTWARE.
  */
 
-#include "gtest/gtest.h"
+#ifndef SINGLETON_H_
+#define SINGLETON_H_
 
-#include "linkedList/NodeTest.cpp"
+#include <boost/thread/mutex.hpp>
 
-#include "mixins/MixinsTest.cpp"
-#include "mixins/StringIteratorTest.cpp"
+class Singleton {
+    public:
+        static Singleton * Instance();
 
-#include "patterns/SingletonTest.cpp"
+    protected:
+        Singleton();
+        ~Singleton();
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
+    private:
+        Singleton(Singleton const &);
+        Singleton & operator=(Singleton const &);
+
+        static Singleton * _instance;
+        static boost::mutex _mutex;
+};
+
+#endif /* SINGLETON_H_ */
